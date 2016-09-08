@@ -14,17 +14,20 @@ terciles/quartiles/quintiles/percentiles, etc.).
 
 # Example:
 
+```python
 import numpy as np  
 import entropy_based_binning as ebb  
 
 A = np.random.randint(0, 5, size=(10, 100))  
 B = ebb.bin_array(A, nbins=3, axis=1)  
 b = ebb.bin_sequence(A[0], nbins=3)  
+```
 
 If the data is discrete but not integer, map the data to integers first:  
 
+```python
 D = np.random.choice(np.linspace(0., 1., 11), size=(10, 100))  
 _, A = np.unique(D, return_inverse=True)  
 A = A.reshape(D.shape)  
 B = ebb.bin_array(A, nbins=3, axis=1)  
-
+```
