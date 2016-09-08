@@ -14,8 +14,8 @@ terciles/quartiles/quintiles/percentiles, etc.).
 
 # Example:
 
-import numpy as np
-import entropy_based_binning as ebb
+import numpy as np  
+import entropy_based_binning as ebb  
 
 A = np.random.randint(0, 5, size=(10, 100))  
 B = ebb.bin_array(A, nbins=3, axis=1)  
