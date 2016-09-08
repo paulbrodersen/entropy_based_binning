@@ -44,7 +44,7 @@ import entropy_based_binning as ebb
 
 A = np.random.randint(0, 5, size=(10, 100))
 B = ebb.bin_array(A, nbins=3, axis=1)
-
+b = ebb.bin_sequence(A[0], nbins=3)
 """
 
 import numpy as np
@@ -62,6 +62,11 @@ def bin_sequence(a, nbins):
 
     nbins: int
         number of bins
+
+    Returns:
+    --------
+    b: (N, ) ndarray
+        binned sequence
 
     """
     amin, amax = np.nanmin(a), np.nanmax(a)
@@ -84,14 +89,20 @@ def bin_array(A, nbins, axis=None):
 
     Arguments:
     ----------
-    a: (N, M) ndarray
+    A: (N, M) ndarray
         input array
 
     nbins: int
         number of bins
 
     axis: None or int (default None)
-        axis along which to bin
+        axis along which to bin;
+        if None, the optimal binning is chosen based on all values in the array;
+
+    Returns:
+    --------
+    B: (N, M) ndarray
+        binned array
 
     """
 
