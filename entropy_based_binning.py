@@ -58,7 +58,7 @@ def bin_sequence(a, nbins):
     Arguments:
     ----------
     a: (N, ) ndarray
-        input sequence
+        input sequence; must be integer
 
     nbins: int
         number of bins
@@ -69,6 +69,8 @@ def bin_sequence(a, nbins):
         binned sequence
 
     """
+    assert np.all(_isinteger(a)), "Input has to be integer or integer-like!"
+
     amin, amax = np.nanmin(a), np.nanmax(a)
     best_h = 0.
 
@@ -90,7 +92,7 @@ def bin_array(A, nbins, axis=None):
     Arguments:
     ----------
     A: (N, M) ndarray
-        input array
+        input array; must be integer
 
     nbins: int
         number of bins
@@ -143,3 +145,6 @@ def _evaluate_binning(a, binning):
     b = _apply_binning(a, binning)
     h = _get_h(b)
     return h
+
+def _isinteger(x):
+    return np.equal(np.mod(x, 1), 0)
