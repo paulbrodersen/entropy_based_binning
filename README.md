@@ -3,7 +3,7 @@
 Exhaustive search for the highest entropy binning of a sequence of integers.
 Use to bin variables that are
 
-(1) integer (discrete, ordinal), and
+(1) integer (discrete, ordinal), and  
 (2) have a 'natural' order.
 
 Typical examples include such things like age, tax bands, etc.
