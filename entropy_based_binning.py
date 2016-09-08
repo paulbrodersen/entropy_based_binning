@@ -77,9 +77,9 @@ def bin_sequence(a, nbins):
         binned sequence
 
     """
-    assert np.all(_isinteger(a)), "Input has to be integer or integer-like!"
+    assert np.all(np.logical_or(_isinteger(a), np.isnan(a))), "Input has to be integer or integer-like!"
 
-    amin, amax = np.nanmin(a), np.nanmax(a)
+    amin, amax = np.int(np.nanmin(a)), np.int(np.nanmax(a))
     best_h = 0.
 
     for binning in _generate_bins(range(amin, amax+1), nbins):
@@ -137,15 +137,15 @@ def _generate_bins(seq, nbins):
                for lo, hi in zip((0,) + ixs, ixs + (nbase,))]
 
 def _apply_binning(a, binning):
-    b = np.zeros_like(a)
+    b = np.full_like(a, np.nan, dtype=np.float)
     for ii, some_bin in enumerate(binning):
         for some_number in some_bin:
             b[a==some_number] = ii
-    return b
+    return b.astype(a.dtype)
 
 def _get_h(b):
-    counts = np.bincount(b).astype(np.float)
-    pdf = counts / np.sum(counts)
+    counts = np.bincount(b[~np.isnan(b)].astype(np.int))
+    pdf = counts.astype(np.float) / np.sum(counts)
     h = -np.sum(np.ma.filled(pdf * np.log2(pdf), fill_value=0))
     return h
 
