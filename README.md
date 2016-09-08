@@ -1,4 +1,4 @@
-# Entropy-based binning for discrete variables:
+# Entropy-based binning for discrete variables
 
 In data analysis and machine learning, it is often necessary to bin
 the values of a variable as a preprocessing step. The binning that
@@ -23,7 +23,7 @@ This module implements the functionality to exhaustively search for
 the highest entropy binning of a sequence of integers, and to apply
 the binning.
 
-# Example:
+## Examples
 
 ```python
 import numpy as np
