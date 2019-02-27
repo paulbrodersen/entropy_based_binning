@@ -70,3 +70,9 @@ _, A = np.unique(D, return_inverse=True)
 A = A.reshape(D.shape)
 B = ebb.bin_array(A, nbins=3, axis=1)
 ```
+
+## Installation
+
+```bash
+pip install entropy_based_binning
+```

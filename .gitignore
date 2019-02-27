@@ -1,0 +1,15 @@
+# Compiled python modules.
+*.pyc
+
+# flymd files
+flymd*
+
+# back-up files
+backup.*
+
+# Setuptools distribution folder.
+/dist/
+
+# Python egg metadata, regenerated from source files by setuptools.
+/*.egg-info
+
