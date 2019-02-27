@@ -22,11 +22,11 @@ known to be NP-hard. However, many approximate solutions exist
 
 For discrete, ordinal data neither set of approaches is very
 desirable. Treating discrete, ordinal data as categorical may result
-in mappings in which values, which are far apart in the original
-space, are grouped together in one bin. Conversely, ranking can result
-in many ties, and if one enforces a discrete uniform target
-distribution, data points with the same rank can end up in different
-bins, which is generally also undesirable.
+in mappings, in which values that are far apart in the original space
+are grouped together in one bin. Conversely, ranking can result in
+many ties, and if one enforces a discrete uniform target distribution,
+data points with the same rank can end up in different bins, which is
+generally also undesirable.
 
 Unfortunately, there appears to be no simple algorithm to place bin
 edges between uniquely valued data points that guarantees a
@@ -37,9 +37,9 @@ Some people employ a recursive approach, in which on each iteration
 they partition the data into the two most similarly sized partitions
 and then recurse on each partition. However, this approach only works
 for a number of bins that is a power of 2, and furthermore is not
-guaranteed to converge to the optimal solution (for my original use
+guaranteed to converge to the optimal solution -- for my original use
 case, the solutions were terrible, which sparked the creation of this
-module).
+module.
 
 This module implements the functionality to exhaustively search for
 the highest entropy binning of a sequence of integers, such that
