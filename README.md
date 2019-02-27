@@ -74,5 +74,5 @@ B = ebb.bin_array(A, nbins=3, axis=1)
 ## Installation
 
 ```bash
-pip install entropy_based_binning
+pip install entropy-based-binning
 ```
