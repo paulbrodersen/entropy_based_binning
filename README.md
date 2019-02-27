@@ -1,5 +1,15 @@
 # Entropy-based binning for discrete variables
 
+## Summary
+
+This module implements the functionality to exhaustively search for
+the highest entropy binning of a sequence of integers, such that
+1. each bin maps back to a sequence of consecutive integers,
+2. consecutive integers are either in the same bin or in consecutive bins, and
+2. no two bins contain the same integer.
+
+## Raison d'être:
+
 In data analysis and machine learning, it is often necessary to bin
 the values of a variable as a preprocessing step. The binning that
 retains the largest amount of information about the original ranks of
@@ -33,19 +43,13 @@ edges between uniquely valued data points that guarantees a
 distribution that is as close as possible to the desired discrete
 uniform distribution.
 
-Some people employ a recursive approach, in which on each iteration
+Some people employ a recursive heuristic, in which on each iteration
 they partition the data into the two most similarly sized partitions
 and then recurse on each partition. However, this approach only works
 for a number of bins that is a power of 2, and furthermore is not
 guaranteed to converge to the optimal solution -- for my original use
 case, the solutions were terrible, which sparked the creation of this
 module.
-
-This module implements the functionality to exhaustively search for
-the highest entropy binning of a sequence of integers, such that
-1. each bin maps back to a sequence of consecutive integers,
-2. consecutive integers are either in the same bin or in consecutive bins, and
-2. no two bins contain the same integer.
 
 ## Examples
 
