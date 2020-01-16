@@ -151,10 +151,17 @@ def bin_sequence_approximately(a, nbins):
     assert np.all(np.logical_or(_isinteger(a), np.isnan(a))), "Input has to be integer or integer-like!"
     assert _isinteger(np.log2(nbins)), "The argument 'nbins' must be a power of two! Current value: {}".format(nbins)
 
-    # split the data into two such that each data split contains half the number of samples
+    # split the data into two such that each data split contains half
+    # the number of samples; as there may be many duplicates of the
+    # median value, we should check with which split we include the
+    # median
     pivot = np.median(a)
-    is_smaller = a <= pivot
+    is_smaller = a < pivot
     is_larger = a > pivot
+    if np.sum(is_smaller) < np.sum(is_larger):
+        is_smaller += a == pivot
+    else:
+        is_larger += a == pivot
 
     # recurse on each half
     if (np.sum(is_smaller) > 1) and (nbins / 2 > 1):
