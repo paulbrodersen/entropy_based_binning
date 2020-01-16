@@ -174,16 +174,12 @@ def bin_sequence_approximately(a, nbins):
     if (np.sum(is_larger) > 1) and (nbins / 2 > 1):
         larger = bin_sequence_approximately(a[is_larger], nbins/2)
     else: # base case
-        larger = np.ones(np.sum(is_larger), dtype=np.int)
+        larger = np.zeros(np.sum(is_larger), dtype=np.int) # sic!
 
     # join results
     b = np.zeros_like(a)
     b[is_smaller] = smaller
     b[is_larger] = larger + np.max(smaller) + 1
-
-    # not all splits will be successful;
-    # some splits may remain empty as the a may contain less classes than desired splits
-    _, b = np.unique(b, return_inverse=True)
 
     return b
 
