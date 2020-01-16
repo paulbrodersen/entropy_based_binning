@@ -129,9 +129,9 @@ def bin_sequence_approximately(a, nbins):
     - each bin is non-empty,
     - no integer value appears in two bins.
 
-    This function uses a heuristic to find such a binning and is hence
-    only approximate. However, it is also likely to be much faster
-    than the exact solution.
+    This function uses a heuristic (equal frequency binning) to
+    find such a binning and is hence only approximate. However, it is
+    also likely to be much faster than the exact solution.
 
     Arguments:
     ----------
@@ -192,9 +192,9 @@ def bin_array_approximately(A, nbins, axis=None):
     - each bin is non-empty,
     - no integer value appears in two bins.
 
-    This function uses a heuristic to find such a binning and is hence
-    only approximate. However, it is also likely to be much faster
-    than the exact solution.
+    This function uses a heuristic (equal frequency binning) to
+    find such a binning and is hence only approximate. However, it is
+    also likely to be much faster than the exact solution.
 
     Arguments:
     ----------
