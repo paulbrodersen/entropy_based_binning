@@ -148,8 +148,10 @@ def bin_sequence_approximately(a, nbins):
 
     """
 
-    assert np.all(np.logical_or(_isinteger(a), np.isnan(a))), "Input has to be integer or integer-like!"
-    assert _isinteger(np.log2(nbins)), "The argument 'nbins' must be a power of two! Current value: {}".format(nbins)
+    assert np.all(np.logical_or(_isinteger(a), np.isnan(a))), \
+        "Input has to be integer or integer-like!"
+    assert _isinteger(np.log2(nbins)), \
+        "The argument 'nbins' must be a power of two! Current value: {}".format(nbins)
 
     # split the data into two such that each data split contains half
     # the number of samples; as there may be many duplicates of the
