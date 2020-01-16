@@ -5,9 +5,18 @@ import numpy as np
 import itertools
 
 def bin_sequence(a, nbins):
-    """
-    Find and apply the maximum entropy binning to an integer sequence,
-    given the number of target bins.
+    """Given a fixed number of bins, find and apply the maximum entropy
+    binning to an integer sequence, subject to the constraints that
+    - each bin contains a consecutive series of integers,
+    - each bin is non-empty,
+    - no integer value appears in two bins.
+
+    This function uses the brute-force solution, i.e. it first
+    enumerates all possible binnings and then selects the one with the
+    highest entropy when applied to the data.
+
+    However, as the approach is exhaustive, it is also often slow.
+    For a fast but approximate approach, see bin_sequence_approximately.
 
     Arguments:
     ----------
@@ -38,10 +47,20 @@ def bin_sequence(a, nbins):
 
 def bin_array(A, nbins, axis=None):
     """
-    Find and apply the maximum entropy binning to an integer array,
-    given the number of target bins.
+    Convenience wrapper around the function bin_sequence.
 
-    Convenience wrapper around bin_sequence().
+    Given a fixed number of bins, find and apply the maximum entropy
+    binning to an integer array, subject to the constraints that
+    - each bin contains a consecutive series of integers,
+    - each bin is non-empty,
+    - no integer value appears in two bins.
+
+    This function uses the brute-force solution, i.e. it first
+    enumerates all possible binnings and then selects the one with the
+    highest entropy when applied to the data.
+
+    However, as the approach is exhaustive, it is also often slow.
+    For a fast but approximate approach, see bin_array_approximately.
 
     Arguments:
     ----------
