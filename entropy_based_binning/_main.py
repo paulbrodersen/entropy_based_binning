@@ -197,7 +197,7 @@ def bin_array_approximately(A, nbins, axis=None):
         input array; must be integer
 
     nbins: int
-        number of bins; mus
+        number of bins; must be a power of two (2, 4, 8, ..., 1024)
 
     axis: None or int (default None)
         axis along which to bin;
