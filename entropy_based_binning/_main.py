@@ -102,3 +102,96 @@ def _evaluate_binning(a, binning):
 
 def _isinteger(x):
     return np.equal(np.mod(x, 1), 0)
+
+def bin_sequence_approximately(a, nbins):
+    """Given a fixed number of bins, find and apply the maximum entropy
+    binning to an integer sequence, subject to the constraints that
+    - each bin contains a consecutive series of integers,
+    - each bin is non-empty,
+    - no integer value appears in two bins.
+
+    This function uses a heuristic to find such a binning and is hence
+    only approximate. However, it is also likely to be much faster
+    than the exact solution.
+
+    Arguments:
+    ----------
+    a: (N, ) ndarray
+        input sequence; must be integer
+
+    nbins: int
+        number of bins; must be a power of two (2, 4, 8, ..., 1024)
+
+    Returns:
+    --------
+    b: (N, ) ndarray
+        binned sequence
+
+    """
+
+    assert np.all(np.logical_or(_isinteger(a), np.isnan(a))), "Input has to be integer or integer-like!"
+    assert _isinteger(np.log2(nbins)), "The argument 'nbins' must be a power of two! Current value: {}".format(nbins)
+
+    # split the data into two such that each data split contains half the number of samples
+    pivot = np.median(a)
+    is_smaller = a <= pivot
+    is_larger = a > pivot
+
+    # recurse on each half
+    if (np.sum(is_smaller) > 1) and (nbins / 2 > 1):
+        smaller = bin_sequence_approximately(a[is_smaller], nbins/2)
+    else: # base case
+        smaller = np.zeros(np.sum(is_smaller), dtype=np.int)
+
+    if (np.sum(is_larger) > 1) and (nbins / 2 > 1):
+        larger = bin_sequence_approximately(a[is_larger], nbins/2)
+    else: # base case
+        larger = np.ones(np.sum(is_larger), dtype=np.int)
+
+    # join results
+    b = np.zeros_like(a)
+    b[is_smaller] = smaller
+    b[is_larger] = larger + np.max(smaller) + 1
+
+    # not all splits will be successful;
+    # some splits may remain empty as the a may contain less classes than desired splits
+    _, b = np.unique(b, return_inverse=True)
+
+    return b
+
+def bin_array_approximately(A, nbins, axis=None):
+    """Convenience wrapper around bin_sequence_approximately().
+
+    Given a fixed number of bins, find and apply the maximum entropy
+    binning to an integer array, subject to the constraints that
+    - each bin contains a consecutive series of integers,
+    - each bin is non-empty,
+    - no integer value appears in two bins.
+
+    This function uses a heuristic to find such a binning and is hence
+    only approximate. However, it is also likely to be much faster
+    than the exact solution.
+
+    Arguments:
+    ----------
+    A: (N, M) ndarray
+        input array; must be integer
+
+    nbins: int
+        number of bins; mus
+
+    axis: None or int (default None)
+        axis along which to bin;
+        if None, the optimal binning is chosen based on all values in the array;
+
+    Returns:
+    --------
+    B: (N, M) ndarray
+        binned array
+
+    """
+
+    if axis is None:
+        return bin_sequence_approximately(A.ravel(), nbins).reshape(A.shape)
+    else:
+        return np.apply_along_axis(bin_sequence_approximately, axis, A, nbins)

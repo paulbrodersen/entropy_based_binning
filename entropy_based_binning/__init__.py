@@ -61,5 +61,7 @@ __email__   = "paulbrodersen+ebb@gmail.com"
 
 from ._main import (
     bin_sequence,
+    bin_sequence_approximately,
     bin_array,
+    bin_array_approximately,
 )
